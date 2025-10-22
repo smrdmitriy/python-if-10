@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контрольная работа - Вариант 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', 'Segoe UI', monospace;
+        }
+        
+        body {
+            background: #0a0a12;
+            color: #00ffea;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 234, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 128, 0.05) 0%, transparent 20%),
+                linear-gradient(135deg, #0a0a12 0%, #151528 100%);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(10, 15, 30, 0.8);
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 
+                0 0 20px rgba(46, 139, 87, 0.3),
+                inset 0 0 20px rgba(46, 139, 87, 0.1);
+            border: 1px solid #2E8B57;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2E8B57, #8B0000, #2E8B57, transparent);
+            animation: scanline 3s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2E8B57;
+            position: relative;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+        
+        h1 {
+            color: #2E8B57;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(46, 139, 87, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        .variant {
+            color: #8B0000;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+        }
+        
+        .instructions {
+            background: rgba(0, 20, 40, 0.6);
+            padding: 20px;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2E8B57;
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.2);
+            position: relative;
+        }
+        
+        .instructions::before {
+            content: "SYSTEM_INIT:";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #0a0a12;
+            padding: 0 10px;
+            color: #2E8B57;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .tasks {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .task {
+            background: rgba(15, 20, 40, 0.6);
+            border: 1px solid #1a3a5f;
+            border-radius: 3px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .task::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #2E8B57;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .task:hover {
+            border-color: #2E8B57;
+            box-shadow: 0 0 15px rgba(46, 139, 87, 0.3);
+        }
+        
+        .task:hover::before {
+            opacity: 1;
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .task-number {
+            background: linear-gradient(135deg, #2E8B57, #00ffea);
+            color: #0a0a12;
+            padding: 8px 16px;
+            border-radius: 2px;
+            font-weight: bold;
+            text-shadow: none;
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.5);
+        }
+        
+        .task-level {
+            background: linear-gradient(135deg, #8B0000, #ff5e00);
+            color: #0a0a12;
+            padding: 5px 12px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            text-shadow: none;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+        
+        .task-title {
+            color: #2E8B57;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
+        }
+        
+        .task-description {
+            margin-bottom: 15px;
+            color: #a0e6ff;
+        }
+        
+        .task-description ul {
+            margin-left: 20px;
+        }
+        
+        .task-description li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .task-description li::before {
+            content: ">";
+            color: #8B0000;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .requirements {
+            background: rgba(40, 30, 0, 0.5);
+            padding: 15px;
+            border-radius: 3px;
+            border-left: 4px solid #ff5e00;
+            color: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 94, 0, 0.2);
+        }
+        
+        .criteria {
+            background: rgba(0, 30, 40, 0.6);
+            padding: 20px;
+            border-radius: 3px;
+            margin-top: 30px;
+            border-left: 4px solid #2E8B57;
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.2);
+            position: relative;
+        }
+        
+        .criteria::before {
+            content: "CRITERIA_ANALYSIS:";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #0a0a12;
+            padding: 0 10px;
+            color: #2E8B57;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #1a3a5f;
+            color: #5a7a9a;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+        
+        h3 {
+            color: #2E8B57;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
+        }
+        
+        p {
+            margin-bottom: 10px;
+        }
+        
+        strong {
+            color: #8B0000;
+        }
+
+        .advanced {
+            border-color: #8B0000;
+        }
+        
+        .advanced::before {
+            background: #8B0000;
+        }
+        
+        .advanced:hover {
+            border-color: #8B0000;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>КОНТРОЛЬНАЯ РАБОТА: PYTHON</h1>
+            <p class="variant">ВАРИАНТ 2</p>
+        </header>
+        
+        <div class="instructions">
+            <h3>ИНСТРУКЦИЯ ПО ВЫПОЛНЕНИЮ:</h3>
+            <p>> Время выполнения: 40 минут</p>
+            <p>> Запрещено использовать интернет и готовые решения</p>
+            <p>> Каждая задача должна быть полностью решена и протестирована</p>
+        </div>
+        
+        <div class="tasks">
+            <!-- Задача 1 -->
+            <div class="task">
+                <div class="task-header">
+                    <div class="task-number">ЗАДАЧА 1</div>
+                    <div class="task-level">СРЕДНИЙ УРОВЕНЬ</div>
+                </div>
+                <h3 class="task-title">ВИСОКОСНЫЙ ГОД С ИСТОРИЕЙ</h3>
+                <div class="task-description">
+                    <p>Напишите программу, которая определяет, является ли год високосным, учитывая исторические изменения:</p>
+                    <ul>
+                        <li>До 1582 года: год високосный, если делится на 4</li>
+                        <li>С 1582 года: год високосный, если (делится на 4 И не делится на 100) ИЛИ делится на 400</li>
+                        <li>Год должен быть положительным числом</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Задача 2 -->
+            <div class="task">
+                <div class="task-header">
+                    <div class="task-number">ЗАДАЧА 2</div>
+                    <div class="task-level">СРЕДНИЙ УРОВЕНЬ</div>
+                </div>
+                <h3 class="task-title">КАЛЬКУЛЯТОР ДОСТАВКИ</h3>
+                <div class="task-description">
+                    <p>Рассчитайте стоимость доставки по правилам:</p>
+                    <ul>
+                        <li>Бесплатная доставка при заказе от 2000 руб.</li>
+                        <li>300 руб. при заказе от 1000 до 1999 руб.</li>
+                        <li>500 руб. при заказе до 1000 руб.</li>
+                        <li>+200 руб. за срочную доставку</li>
+                        <li>+100 руб. за доставку в отдаленный район</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Задача 3 -->
+            <div class="task advanced">
+                <div class="task-header">
+                    <div class="task-number">ЗАДАЧА 3</div>
+                    <div class="task-level">ПРОДВИНУТЫЙ УРОВЕНЬ</div>
+                </div>
+                <h3 class="task-title">ШАХМАТНЫЙ КОРОЛЬ И КОНЬ</h3>
+                <div class="task-description">
+                    <p>На шахматной доске находятся король и конь. Определите, находится ли король под шахом от коня.</p>
+                </div>
+            </div>
+            
+            <!-- Задача 4 -->
+            <div class="task">
+                <div class="task-header">
+                    <div class="task-number">ЗАДАЧА 4</div>
+                    <div class="task-level">СРЕДНИЙ УРОВЕНЬ</div>
+                </div>
+                <h3 class="task-title">ПРОВЕРКА СЛОЖНОСТИ ПАРОЛЯ</h3>
+                <div class="task-description">
+                    <p>Напишите программу, которая проверяет пароль по критериям:</p>
+                    <ul>
+                        <li>Длина не менее 8 символов</li>
+                        <li>Содержит заглавные буквы ABC</li>
+                        <li>Содержит цифры 0123</li>
+                        <li>Содержит специальные символы (!@#)</li>
+                    </ul>
+                    <p>Выведите оценку пароля: "Слабый", "Средний", "Сильный"</p>
+                </div>
+            </div>
+            
+            <!-- Задача 5 -->
+            <div class="task">
+                <div class="task-header">
+                    <div class="task-number">ЗАДАЧА 5</div>
+                    <div class="task-level">СРЕДНИЙ УРОВЕНЬ</div>
+                </div>
+                <h3 class="task-title">КОНВЕРТЕР ВРЕМЕНИ</h3>
+                <div class="task-description">
+                    <p>Напишите программу, которая:</p>
+                    <ul>
+                        <li>Переводит секунды в часы:минуты:секунды</li>
+                        <li>Определяет время суток (утро, день, вечер, ночь). Время распределите самостоятельно.</li>
+                        <li>Проверяет корректность введенного времени</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="criteria">
+            <h3>КРИТЕРИИ ОЦЕНКИ:</h3>
+            <p><strong>Оценка "3"</strong> - решены 2 средние задачи</p>
+            <p><strong>Оценка "4"</strong> - решены 3 средние задачи</p>
+            <p><strong>Оценка "5"</strong> - решены все задачи</p>
+        </div>
+        
+        <footer>
+            <p>КОНТРОЛЬНАЯ РАБОТА ПО ИНФОРМАТИКЕ • 10 КЛАСС • УСЛОВНЫЙ ОПЕРАТОР</p>
+        </footer>
+    </div>
+</body>
+</html>
