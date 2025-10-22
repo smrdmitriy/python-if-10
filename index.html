@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Киберпанк Навигация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #0a0a12;
+            color: #00ffea;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 4px);
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 234, 0.3);
+            border-radius: 5px;
+            background: rgba(10, 10, 20, 0.7);
+            box-shadow: 0 0 20px rgba(0, 255, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea;
+            position: relative;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cyber-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: transparent;
+            border: 2px solid;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            outline: none;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+
+        .button-primary {
+            color: #00ffea;
+            border-color: #00ffea;
+            box-shadow: 0 0 10px rgba(0, 255, 234, 0.5), inset 0 0 10px rgba(0, 255, 234, 0.1);
+        }
+
+        .button-primary:hover {
+            background: rgba(0, 255, 234, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 234, 0.8), inset 0 0 20px rgba(0, 255, 234, 0.2);
+            text-shadow: 0 0 10px #00ffea;
+        }
+
+        .button-secondary {
+            color: #ff0080;
+            border-color: #ff0080;
+            box-shadow: 0 0 10px rgba(255, 0, 128, 0.5), inset 0 0 10px rgba(255, 0, 128, 0.1);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 0, 128, 0.1);
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.8), inset 0 0 20px rgba(255, 0, 128, 0.2);
+            text-shadow: 0 0 10px #ff0080;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0080;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffea;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
+        }
+
+        .terminal-text {
+            color: #00ff00;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            padding: 0.5rem;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: rgba(0, 20, 0, 0.3);
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .terminal-text p {
+            margin: 0.3rem 0;
+            animation: type 0.1s steps(40, end);
+        }
+
+        @keyframes type {
+            from { width: 0; }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .status-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        .online {
+            background-color: #00ff00;
+            box-shadow: 0 0 5px #00ff00;
+        }
+
+        .warning {
+            background-color: #ffaa00;
+            box-shadow: 0 0 5px #ffaa00;
+        }
+
+        .offline {
+            background-color: #ff0080;
+            box-shadow: 0 0 5px #ff0080;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="glitch" data-text="УСЛОВИЕ НА PYTHON">УСЛОВИЕ НА PYTHON</h1>
+        
+        <div class="status-indicator">
+            <div class="status-item">
+                <div class="status-dot online"></div>
+                <span>СИСТЕМА ОНЛАЙН</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot warning"></div>
+                <span>ПРОТОКОЛ АКТИВЕН</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot offline"></div>
+                <span>СВЯЗЬ УСТАНОВЛЕНА</span>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <a href="var1.html" class="cyber-button button-primary">ВАРИАНТ 1</a>
+            <a href="var2.html" class="cyber-button button-secondary">ВАРИАНТ 2</a>
+        </div>
+        
+        <div class="terminal-text">
+            <p>> СИСТЕМА ЗАПУЩЕНА [ВЕРСИЯ 2.3.7]</p>
+            <p>> ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА...</p>
+            <p>> ДОСТУПНЫЕ НАПРАВЛЕНИЯ:</p>
+            <p>> - ВАРИАНТ 1: НОВИЧОК</p>
+            <p>> - ВАРИАНТ 2: ПРОФИ</p>
+            <p>> ВЫБЕРИТЕ НАПРАВЛЕНИЕ <span class="blink">_</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем интерактивность кнопкам
+        document.querySelectorAll('.cyber-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Анимация нажатия
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+                
+                // Добавляем запись в терминал
+                const terminal = document.querySelector('.terminal-text');
+                const newEntry = document.createElement('p');
+                newEntry.textContent = `> ПЕРЕХОД К ${this.textContent.toUpperCase()}...`;
+                terminal.appendChild(newEntry);
+                terminal.scrollTop = terminal.scrollHeight;
+            });
+        });
+
+        // Добавляем случайные сообщения в терминал для атмосферы
+        const messages = [
+            "> СКАНИРОВАНИЕ СЕТИ... УГРОЗ НЕ ОБНАРУЖЕНО",
+            "> ПРОВЕРКА ЦЕЛОСТНОСТИ ДАННЫХ... УСПЕШНО",
+            "> МОНИТОРИНГ АКТИВНОСТИ... В НОРМЕ",
+            "> ОБНОВЛЕНИЕ БАЗЫ КОДОВ... ВЫПОЛНЕНО"
+        ];
+
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const terminal = document.querySelector('.terminal-text');
+                const newEntry = document.createElement('p');
+                newEntry.textContent = messages[Math.floor(Math.random() * messages.length)];
+                terminal.appendChild(newEntry);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
